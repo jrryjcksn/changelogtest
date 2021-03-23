@@ -16,20 +16,15 @@ jobs:
         env:
           CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
         run: docker run --rm -v "${GITHUB_WORKSPACE}":"/usr/local/src/your-app" ferrarimarco/github-changelog-generator -u weaveworks -p weave-gitops
-      # - name: check-in
-      #   env:
-      #     CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
-      #   run: GITHUB_ACCESS_TOKEN="${CHANGELOG_GITHUB_TOKEN}" cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog'
-
-  push-changelog:
-    runs-on: ubuntu-20.04
-    steps:
       - name: savelog
         uses: elstudio/actions-js-build/commit@v2
         with:
-          wdPath: ${GITHUB_WORKSPACE}
           pushBranch: master
           commitMessage: Add changelog
         env:
           GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
+      # - name: check-in
+      #   env:
+      #     CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
+      #   run: GITHUB_ACCESS_TOKEN="${CHANGELOG_GITHUB_TOKEN}" cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog'
 
