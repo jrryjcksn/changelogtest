@@ -27,6 +27,7 @@ jobs:
       - name: savelog
         uses: elstudio/actions-js-build/commit@v2
         with:
+          wdPath: ${GITHUB_WORKSPACE}
           pushBranch: master
           commitMessage: Add changelog
         env:
