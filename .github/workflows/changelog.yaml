@@ -15,5 +15,7 @@ jobs:
       - name: genlog
         run: docker run --rm -v "${GITHUB_WORKSPACE}":"/usr/local/src/your-app" ferrarimarco/github-changelog-generator -u weaveworks -p weave-gitops
       - name: savelog
-        run: cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog' && git push
+        env:
+          CHANGELOG_SECRET: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
+        run: GITHUB_ACCESS_TOKEN="${CHANGELOG_SECRET}" cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog' && git push
 
