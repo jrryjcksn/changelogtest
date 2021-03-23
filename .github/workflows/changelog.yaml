@@ -17,5 +17,5 @@ jobs:
       - name: savelog
         env:
           CHANGELOG_SECRET: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
-        run: GITHUB_ACCESS_TOKEN="${CHANGELOG_SECRET}" cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog' && git push HEAD:master
+        run: GITHUB_ACCESS_TOKEN="${CHANGELOG_SECRET}" cd "${GITHUB_WORKSPACE}" && git add CHANGELOG.md && git commit -m'Add changelog' && git push HEAD HEAD:master
 
