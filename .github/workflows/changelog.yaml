@@ -19,7 +19,7 @@ jobs:
           docker run --rm -v "${GITHUB_WORKSPACE}":"/usr/local/src/your-app" ferrarimarco/github-changelog-generator -u weaveworks -p weave-gitops
           git add .
           git commit -m "Created changelog"
-          git push
+          git push origin HEAD:master
       # - name: Configure git info
       #   run:  cd "${GITHUB_WORKSPACE}" && git config --global user.email "support@weave.works" && git config --global user.name "support"
       # - name: genlog
