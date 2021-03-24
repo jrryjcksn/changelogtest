@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Create changelog
         env:
           CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
         run: |
