@@ -10,19 +10,28 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Configure git info
-        run:  cd "${GITHUB_WORKSPACE}" && git config --global user.email "support@weave.works" && git config --global user.name "support"
-      - name: genlog
         env:
           CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
-        run: docker run --rm -v "${GITHUB_WORKSPACE}":"/usr/local/src/your-app" ferrarimarco/github-changelog-generator -u weaveworks -p weave-gitops
-      - name: savelog
-        uses: elstudio/actions-js-build/commit@v2
-        with:
-          pushBranch: master
-          commitMessage: Add changelog
-        env:
-          GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          docker run --rm -v "${GITHUB_WORKSPACE}":"/usr/local/src/your-app" ferrarimarco/github-changelog-generator -u weaveworks -p weave-gitops
+          git add .
+          git commit -m "Created changelog"
+          git push
+      # - name: Configure git info
+      #   run:  cd "${GITHUB_WORKSPACE}" && git config --global user.email "support@weave.works" && git config --global user.name "support"
+      # - name: genlog
+      #   env:
+      #     CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
+      #   run:
+      # - name: savelog
+      #   uses: elstudio/actions-js-build/commit@v2
+      #   with:
+      #     pushBranch: master
+      #     commitMessage: Add changelog
+      #   env:
+      #     GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
       # - name: check-in
       #   env:
       #     CHANGELOG_GITHUB_TOKEN: "${{ secrets.CHANGELOG_CREATION_TOKEN }}"
